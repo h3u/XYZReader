@@ -9,4 +9,6 @@
 
     <string name="up">Up</string>
 
+    <!--article list-->
+    <string name="list_item_subtitle">%1$s by %2$s</string>
 </resources>

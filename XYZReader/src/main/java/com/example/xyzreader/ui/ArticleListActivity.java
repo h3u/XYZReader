@@ -35,7 +35,8 @@ import com.example.xyzreader.data.UpdaterService;
 public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    private Toolbar mToolbar;
+    private static final String TAG = "ArticleListActivity";
+
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
 
@@ -44,10 +45,10 @@ public class ArticleListActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mToolbar.setTitle("");
+        toolbar.setTitle("");
 
         final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
@@ -170,18 +171,31 @@ public class ArticleListActivity extends AppCompatActivity implements
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             mCursor.moveToPosition(position);
-            holder.titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
-            holder.subtitleView.setText(
+
+            Float ratio = mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO);
+            String title = mCursor.getString(ArticleLoader.Query.TITLE);
+            holder.titleView.setText(title);
+            holder.titleInverseView.setText(title);
+            holder.subtitleView.setText(String.format(getString(R.string.list_item_subtitle),
                     DateUtils.getRelativeTimeSpanString(
                             mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
                             System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
-                            DateUtils.FORMAT_ABBREV_ALL).toString()
-                            + " by "
-                            + mCursor.getString(ArticleLoader.Query.AUTHOR));
+                            DateUtils.FORMAT_ABBREV_ALL).toString(),
+                            mCursor.getString(ArticleLoader.Query.AUTHOR)));
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
+
+            // switch layout for ration <= 1.0f
+            if (ratio <= 1.0f) {
+                // change visibility of title views
+                holder.titleView.setVisibility(View.GONE);
+                holder.titleInverseView.setVisibility(View.VISIBLE);
+            } else {
+                holder.titleView.setVisibility(View.VISIBLE);
+                holder.titleInverseView.setVisibility(View.GONE);
+            }
         }
 
         @Override
@@ -193,12 +207,14 @@ public class ArticleListActivity extends AppCompatActivity implements
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public DynamicHeightNetworkImageView thumbnailView;
         public TextView titleView;
+        public TextView titleInverseView;
         public TextView subtitleView;
 
         public ViewHolder(View view) {
             super(view);
             thumbnailView = (DynamicHeightNetworkImageView) view.findViewById(R.id.thumbnail);
             titleView = (TextView) view.findViewById(R.id.article_title);
+            titleInverseView = (TextView) view.findViewById(R.id.article_title_inverse);
             subtitleView = (TextView) view.findViewById(R.id.article_subtitle);
         }
     }
