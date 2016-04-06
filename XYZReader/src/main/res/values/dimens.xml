@@ -10,4 +10,5 @@
 
     <!--article list -->
     <dimen name="appbar_image_height">72dp</dimen>
+    <dimen name="list_item_image_size">40dp</dimen>
 </resources>

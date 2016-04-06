@@ -11,4 +11,6 @@
 
     <!--article list-->
     <string name="list_item_subtitle">%1$s by %2$s</string>
+    <string name="menu_item_list_layout">list layout</string>
+    <string name="menu_item_grid_layout">grid layout</string>
 </resources>
