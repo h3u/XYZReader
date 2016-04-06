@@ -24,7 +24,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
-
+    private static final String TAG = "DividerItemDecoration";
     private static final int[] ATTRS = new int[]{
             android.R.attr.listDivider
     };
@@ -37,9 +37,19 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private int mOrientation;
 
+    private boolean mDrawLastDivider;
+
+
     public DividerItemDecoration(Context context, Drawable divider, int orientation) {
         mDivider = divider;
         setOrientation(orientation);
+        mDrawLastDivider = true;
+    }
+
+    public DividerItemDecoration(Context context, Drawable divider, int orientation, boolean drawLastDivider) {
+        mDivider = divider;
+        setOrientation(orientation);
+        mDrawLastDivider = drawLastDivider;
     }
 
     public void setOrientation(int orientation) {
@@ -62,7 +72,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         final int left = parent.getPaddingLeft();
         final int right = parent.getWidth() - parent.getPaddingRight();
 
-        final int childCount = parent.getChildCount();
+        final int childCount = mDrawLastDivider
+                ? parent.getChildCount() : parent.getChildCount() - 1;
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
@@ -78,7 +89,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         final int top = parent.getPaddingTop();
         final int bottom = parent.getHeight() - parent.getPaddingBottom();
 
-        final int childCount = parent.getChildCount();
+        final int childCount = mDrawLastDivider
+                ? parent.getChildCount() : parent.getChildCount() - 1;
         for (int i = 0; i < childCount; i++) {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
