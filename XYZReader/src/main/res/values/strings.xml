@@ -13,4 +13,11 @@
     <string name="list_item_subtitle">%1$s by %2$s</string>
     <string name="menu_item_list_layout">list layout</string>
     <string name="menu_item_grid_layout">grid layout</string>
+
+    <!--article detail-->
+    <string name="article_detail_date_author">
+        <![CDATA[
+        %1$s by <font color=\"#ffffff\">%2$s</font>
+        ]]>
+    </string>
 </resources>
