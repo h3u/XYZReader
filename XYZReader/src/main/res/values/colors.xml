@@ -25,9 +25,7 @@
     <color name="theme_secondary_text">#727272</color>
     <color name="theme_devider">#B6B6B6</color>
     <color name="theme_icons">#FFFFFF</color>
-    <color name="theme_accent">#FF5722</color>
+    <color name="theme_accent">#FD3D0A</color>
     <color name="ltgray">#ffe0e0e0</color>
-    <color name="red">#ff0000</color>
-    <color name="green">#00ff00</color>
-    <color name="blue">#0000ff</color>
+    <color name="black_60">#99000000</color>
 </resources>
