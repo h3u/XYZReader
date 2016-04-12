@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="article_detail_up_container_fit_system_window">true</bool>
+</resources>
