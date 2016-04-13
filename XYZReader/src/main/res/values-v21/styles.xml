@@ -10,7 +10,7 @@
     <style name="AppTheme.ActionBar">
         <item name="android:background">?android:attr/colorPrimary</item>
     </style>
-    <style name="AppTheme.ArticleListActivity">
+    <style name="AppTheme.ArticleListActivity" parent="AppTheme">
         <item name="android:windowExitTransition">@transition/exit_fade</item>
         <item name="android:windowReenterTransition">@android:transition/slide_top</item>
     </style>
