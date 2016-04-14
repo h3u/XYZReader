@@ -63,22 +63,26 @@ public class ArticleListActivity extends AppCompatActivity implements
 
         // add listener to call refresh when user swipes down
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        mSwipeRefreshLayout.setColorSchemeResources(
-                R.color.theme_accent, R.color.theme_primary, R.color.theme_primary_dark);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
+        if (mSwipeRefreshLayout != null) {
+            mSwipeRefreshLayout.setColorSchemeResources(
+                    R.color.theme_accent, R.color.theme_primary, R.color.theme_primary_dark);
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    refresh();
+                }
+            });
+        }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
+        if (mRecyclerView != null) {
+            mRecyclerView.setHasFixedSize(true);
+        }
         getLoaderManager().initLoader(0, null, this);
 
         RecyclerView.LayoutManager lm;
         if (!mUseGrid) {
-            lm = new LinearLayoutManager(ArticleListActivity.this,LinearLayoutManager.VERTICAL,false);
+            lm = new LinearLayoutManager(ArticleListActivity.this, LinearLayoutManager.VERTICAL, false);
             mRecyclerView.addItemDecoration(new DividerItemDecoration(
                     this, ContextCompat.getDrawable(this, R.drawable.padded_divider),
                     DividerItemDecoration.VERTICAL_LIST, false));
@@ -214,8 +218,9 @@ public class ArticleListActivity extends AppCompatActivity implements
             holder.subtitleView.setText(String.format(getString(R.string.list_item_subtitle),
                     DateUtils.getRelativeTimeSpanString(
                             mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),
-                            System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
-                            DateUtils.FORMAT_ABBREV_ALL).toString(),
+                            System.currentTimeMillis(),
+                            DateUtils.HOUR_IN_MILLIS,
+                            DateUtils.FORMAT_NUMERIC_DATE).toString(),
                             mCursor.getString(ArticleLoader.Query.AUTHOR)));
             if (holder instanceof GridItemViewHolder) {
                 ((GridItemViewHolder)holder).thumbnailView.setImageUrl(
@@ -231,9 +236,8 @@ public class ArticleListActivity extends AppCompatActivity implements
                 }
                 Picasso.with(ArticleListActivity.this).load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
                         .error(R.drawable.image_error)
-                        .transform(new RoundedTransformation(50, 0))
-                        .resizeDimen(R.dimen.list_item_image_size, R.dimen.list_item_image_size)
                         .into(holder.thumbnailView, new Callback() {
+                            // make progress bar invisible after loading
                             @Override
                             public void onSuccess() {
                                 holder.thumbnailProgressBar.setVisibility(View.GONE);

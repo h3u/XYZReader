@@ -1,56 +1,38 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="@dimen/list_item_height"
+    android:paddingLeft="@dimen/list_item_padding_horizontal"
+    android:paddingStart="@dimen/list_item_padding_horizontal"
+    android:paddingRight="@dimen/list_item_padding_horizontal"
+    android:paddingEnd="@dimen/list_item_padding_horizontal"
     android:clickable="true"
     android:focusable="true"
+    android:orientation="horizontal"
+    android:weightSum="1"
     android:background="?selectableItemBackground">
 
-    <FrameLayout
-        android:layout_marginLeft="@dimen/abc_list_item_padding_horizontal_material"
-        android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="@dimen/list_item_image_size"
-            android:layout_height="@dimen/list_item_image_size"
-            android:layout_gravity="center"
-            android:scaleType="fitXY"
-            />
-        <ProgressBar
-            android:id="@+id/thumbnail_progressbar"
-            android:layout_width="@dimen/list_item_image_size"
-            android:layout_height="@dimen/list_item_image_size"
-            android:layout_gravity="center"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:visibility="visible"/>
-    </FrameLayout>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="72dp"
-        android:paddingRight="@dimen/abc_list_item_padding_horizontal_material"
-        android:weightSum="1"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical">
         <TextView
             android:id="@+id/article_title"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
             android:gravity="bottom"
             tools:text="Titel of article - just a headline that can be a little bit longer"
             android:ellipsize="end"
-            android:maxLines="1" />
+            android:maxLines="2" />
         <TextView
             android:id="@+id/article_subtitle"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
             android:gravity="top"
             android:textColor="@color/theme_secondary_text"
             tools:text="Subtitle of an article built from date and author."
@@ -58,4 +40,29 @@
             android:ellipsize="end" />
     </LinearLayout>
 
-</RelativeLayout>
+    <FrameLayout
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/list_item_image_width"
+        android:layout_height="@dimen/list_item_image_height">
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="@dimen/list_item_image_width"
+            android:layout_height="@dimen/list_item_image_height"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            tools:background="@color/black_60"
+            tools:src="@drawable/logo"/>
+        <ProgressBar
+            android:id="@+id/thumbnail_progressbar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:visibility="visible"/>
+    </FrameLayout>
+
+</LinearLayout>

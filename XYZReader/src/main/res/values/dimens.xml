@@ -9,6 +9,9 @@
     <bool name="article_detail_up_container_fit_system_window">false</bool>
 
     <!--article list -->
+    <dimen name="list_item_height">88dp</dimen>
+    <dimen name="list_item_padding_horizontal">@dimen/abc_list_item_padding_horizontal_material</dimen>
     <dimen name="appbar_image_height">72dp</dimen>
-    <dimen name="list_item_image_size">40dp</dimen>
+    <dimen name="list_item_image_width">80dp</dimen>
+    <dimen name="list_item_image_height">70dp</dimen>
 </resources>
