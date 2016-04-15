@@ -11,7 +11,7 @@
         <item name="android:background">?android:attr/colorPrimary</item>
     </style>
     <style name="AppTheme.ArticleListActivity" parent="AppTheme">
-        <item name="android:windowExitTransition">@transition/exit_fade</item>
-        <item name="android:windowReenterTransition">@android:transition/slide_top</item>
+        <item name="android:windowExitTransition">@android:transition/slide_top</item>
+        <item name="android:windowReenterTransition">@android:transition/slide_bottom</item>
     </style>
 </resources>
