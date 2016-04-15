@@ -12,6 +12,7 @@
         android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="@dimen/appbar_elevation"
         style="@style/AppTheme.ActionBar"
         tools:targetApi="lollipop">
 
