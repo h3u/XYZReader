@@ -53,8 +53,9 @@ public class ArticleListActivity extends AppCompatActivity implements
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setTitle("");
+        if (toolbar != null) toolbar.setTitle("");
 
         // for tablet devices use the grid layout
         if (getResources().getConfiguration().smallestScreenWidthDp >= 600) {
@@ -84,7 +85,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         if (!mUseGrid) {
             lm = new LinearLayoutManager(ArticleListActivity.this, LinearLayoutManager.VERTICAL, false);
             mRecyclerView.addItemDecoration(new DividerItemDecoration(
-                    this, ContextCompat.getDrawable(this, R.drawable.padded_divider),
+                    ContextCompat.getDrawable(ArticleListActivity.this, R.drawable.padded_divider),
                     DividerItemDecoration.VERTICAL_LIST, false));
             mRecyclerView.setLayoutManager(lm);
         }
@@ -129,7 +130,7 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     private boolean mIsRefreshing = false;
 
-    private BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mRefreshingReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
@@ -169,7 +170,7 @@ public class ArticleListActivity extends AppCompatActivity implements
     }
 
     private class Adapter extends RecyclerView.Adapter<ItemViewHolder> {
-        private Cursor mCursor;
+        private final Cursor mCursor;
         private boolean mIsGrid;
 
         public Adapter(Cursor cursor) {
@@ -199,6 +200,7 @@ public class ArticleListActivity extends AppCompatActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //noinspection unchecked
                     Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(ArticleListActivity.this).toBundle();
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))), bundle);
@@ -232,7 +234,7 @@ public class ArticleListActivity extends AppCompatActivity implements
                 // set accent color for progress bar
                 if (holder.thumbnailProgressBar.getIndeterminateDrawable() != null) {
                     holder.thumbnailProgressBar.getIndeterminateDrawable()
-                            .setColorFilter(getResources().getColor(R.color.theme_accent), android.graphics.PorterDuff.Mode.SRC_IN);
+                            .setColorFilter(ContextCompat.getColor(ArticleListActivity.this, R.color.theme_accent), android.graphics.PorterDuff.Mode.SRC_IN);
                 }
                 Picasso.with(ArticleListActivity.this).load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
                         .error(R.drawable.image_error)
@@ -274,10 +276,10 @@ public class ArticleListActivity extends AppCompatActivity implements
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        public ImageView thumbnailView;
-        public ProgressBar thumbnailProgressBar;
-        public TextView titleView;
-        public TextView subtitleView;
+        public final ImageView thumbnailView;
+        public final ProgressBar thumbnailProgressBar;
+        public final TextView titleView;
+        public final TextView subtitleView;
 
         public ItemViewHolder(View view) {
             super(view);
@@ -289,8 +291,8 @@ public class ArticleListActivity extends AppCompatActivity implements
     }
 
     public static class GridItemViewHolder extends ItemViewHolder {
-        public DynamicHeightNetworkImageView thumbnailView;
-        public TextView titleInverseView;
+        public final DynamicHeightNetworkImageView thumbnailView;
+        public final TextView titleInverseView;
 
         public GridItemViewHolder(View view) {
             super(view);

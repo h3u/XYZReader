@@ -36,7 +36,7 @@ public class ArticleDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "ArticleDetailFragment";
 
-    public static final String ARG_ITEM_ID = "item_id";
+    private static final String ARG_ITEM_ID = "item_id";
     private static final float PARALLAX_FACTOR = 1.25f;
 
     private Cursor mCursor;
@@ -84,7 +84,7 @@ public class ArticleDetailFragment extends Fragment implements
         setHasOptionsMenu(true);
     }
 
-    public ArticleDetailActivity getActivityCast() {
+    private ArticleDetailActivity getActivityCast() {
         return (ArticleDetailActivity) getActivity();
     }
 
@@ -154,11 +154,12 @@ public class ArticleDetailFragment extends Fragment implements
         mDrawInsetsFrameLayout.setInsetBackground(mStatusBarColorDrawable);
     }
 
-    static float progress(float v, float min, float max) {
+    private static float progress(float v, float min, float max) {
         return constrain((v - min) / (max - min), 0, 1);
     }
 
-    static float constrain(float val, float min, float max) {
+    @SuppressWarnings("SameParameterValue")
+    private static float constrain(float val, float min, float max) {
         if (val < min) {
             return min;
         } else if (val > max) {

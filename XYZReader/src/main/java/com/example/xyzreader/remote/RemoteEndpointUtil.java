@@ -20,7 +20,7 @@ public class RemoteEndpointUtil {
     }
 
     public static JSONArray fetchJsonArray() {
-        String itemsJson = null;
+        String itemsJson;
         try {
             itemsJson = fetchPlainText(Config.BASE_URL);
         } catch (IOException e) {
@@ -43,7 +43,8 @@ public class RemoteEndpointUtil {
         return null;
     }
 
-    static String fetchPlainText(URL url) throws IOException {
+    @SuppressWarnings("SameParameterValue")
+    private static String fetchPlainText(URL url) throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -60,6 +61,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         mPagerAdapter = new MyPagerAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
+        assert mPager != null;
         mPager.setAdapter(mPagerAdapter);
         mPager.setPageMargin((int) TypedValue
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
@@ -140,7 +142,7 @@ public class ArticleDetailActivity extends AppCompatActivity
      *
      * @param window actual window
      */
-    public static void setTranslucentStatusBar(Window window) {
+    private static void setTranslucentStatusBar(Window window) {
         if (window == null) return;
         int sdkInt = Build.VERSION.SDK_INT;
         if (sdkInt >= Build.VERSION_CODES.LOLLIPOP) {
@@ -152,10 +154,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static void setTranslucentStatusBarLollipop(Window window) {
-        window.setStatusBarColor(
-                window.getContext()
-                        .getResources()
-                        .getColor(R.color.black_20));
+        window.setStatusBarColor(ContextCompat.getColor(window.getContext(), R.color.black_20));
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
